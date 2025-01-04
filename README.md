@@ -5,8 +5,9 @@ A Django-based UAV (Unmanned Aerial Vehicle) Management System for managing and 
 Overview
 Tech Stack
 Setup Instructions
-Environment Variables
+Database Configuration
 Usage
+Static Files
 Deployment
 Future Improvements
 Author
@@ -40,7 +41,9 @@ Create and run PostgreSQL and Django containers.
 Apply database migrations.
 Collect static files.
 3. Access the Application
-Open your browser and navigate to: http://localhost:8000
+Open your browser and navigate to:
+👉 http://localhost:8000
+
 ⚙️ Database Configuration
 The database settings are pre-configured in settings.py:
 
@@ -95,4 +98,6 @@ bash
 Copy code
 docker-compose up -d
 3. Access Application
-Open: http://localhost:8000
+Open:
+👉 http://localhost:8000
+
