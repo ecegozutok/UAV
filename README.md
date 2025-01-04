@@ -27,13 +27,9 @@ Frontend: HTML, CSS, Bootstrap
 Containerization: Docker, Docker Compose
 🛠️ Setup Instructions
 1. Clone the Repository
-bash
-Copy code
 git clone https://github.com/ecegozutok/UAV.git
 cd UAV/website
 2. Build and Run Docker Containers
-bash
-Copy code
 docker-compose up --build
 This will:
 
@@ -47,8 +43,6 @@ Open your browser and navigate to:
 ⚙️ Database Configuration
 The database settings are pre-configured in settings.py:
 
-python
-Copy code
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -70,8 +64,6 @@ Make sure these match your docker-compose.yml file.
 1. Access Django Admin
 URL: http://localhost:8000/admin
 Default credentials: (create a superuser if needed)
-bash
-Copy code
 docker-compose exec web python manage.py createsuperuser
 2. API Endpoints
 /api/wing_counts/: Check wing availability.
@@ -79,8 +71,6 @@ docker-compose exec web python manage.py createsuperuser
 /api/tail_counts/: Check tail availability.
 /api/avionics_counts/: Check avionics availability.
 3. Stop the Containers
-bash
-Copy code
 docker-compose down
 📦 Static Files
 Static files are collected in the /staticfiles directory inside the container:
@@ -90,12 +80,8 @@ In production, ensure a web server like Nginx serves these static files efficien
 
 🚀 Deployment
 1. Build the Docker Image
-bash
-Copy code
 docker-compose build
 2. Run Containers in Detached Mode
-bash
-Copy code
 docker-compose up -d
 3. Access Application
 Open:
