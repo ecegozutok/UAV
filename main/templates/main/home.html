@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+{% if can_view_wing_page %}
+
+    {% include 'main/wing_list.html' %}
+
+{% endif %}
+
+{% if can_view_fuselage_page %}
+
+    {% include 'main/fuselage_list.html' %}
+
+{% endif %}
+{% if can_view_tail_page %}
+
+    {% include 'main/tail_list.html' %}
+
+{% endif %}
+
+{% if can_view_avionics_page %}
+
+    {% include 'main/avionics_list.html' %}
+
+{% endif %}
+
+{% if can_view_aircraft_page %}
+
+    {% include 'main/aircraft_list.html' %}
+
+{% endif %}
+{% endblock %}

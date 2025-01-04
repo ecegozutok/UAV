@@ -1,0 +1,13 @@
+# Core Django and DRF
+Django>=4.0,<5.0
+djangorestframework>=3.14.0
+
+# Database
+psycopg2>=2.9.3
+
+# Crispy Forms and Bootstrap Integration
+django-crispy-forms>=1.14.0
+crispy-bootstrap5>=0.7
+
+# Security and Environment Variables
+python-dotenv>=1.0.0

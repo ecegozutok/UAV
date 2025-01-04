@@ -1,0 +1,76 @@
+
+{% block content %}
+
+<h1>Aircraft Overview</h1>
+
+{% if can_view_aircraft_page %}
+    <table id="aircraft-datatable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Wing ID</th>
+                <th>Fuselage ID</th>
+                <th>Tail ID</th>
+                <th>Avionics ID</th>
+                <th>Author</th>
+                <th>Created At</th>
+                {% if perms.main.delete_aircraft %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for aircraft in aircraft %}
+            <tr>
+                <td>{{ aircraft.id|default:"-" }}</td>
+                <td>{{ aircraft.aircraft_type|default:"-" }}</td>
+                <td>{{ aircraft.wing_id.id|default:"-" }}</td>
+                <td>{{ aircraft.fuselage_id.id|default:"-" }}</td>
+                <td>{{ aircraft.tail_id.id|default:"-" }}</td>
+                <td>{{ aircraft.avionics_id.id|default:"-" }}</td>
+                <td>{{ aircraft.author.username|default:"-" }}</td>
+                <td>{{ aircraft.created_at|date:"Y-m-d H:i" }}</td>
+                {% if perms.main.delete_aircraft or aircraft.author == user %}
+                <td>
+                    <form method="POST" action="{% url 'home' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item-id" value="{{ aircraft.id }}">
+                        <input type="hidden" name="item-type" value="aircraft">
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete this aircraft?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="text-center text-muted">No aircraft available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You do not have permission to view the Aircraft Overview.</p>
+{% endif %}
+
+<!-- Include DataTables and Bootstrap JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#aircraft-datatable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            responsive: true
+        });
+    });
+</script>
+
+{% endblock %}

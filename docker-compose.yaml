@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    container_name: uav_postgres
+    environment:
+      POSTGRES_DB: uavdb
+      POSTGRES_USER: uavuser
+      POSTGRES_PASSWORD: uavpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    restart: always
+
+  web:
+    build: .
+    container_name: uav_django
+    command: >
+      sh -c "python manage.py migrate &&
+                  python manage.py collectstatic --no-input &&
+                  echo '🚀 Django server is starting at http://localhost:8000/' &&
+                  python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+      - POSTGRES_DB=uavdb
+      - POSTGRES_USER=uavuser
+      - POSTGRES_PASSWORD=uavpassword
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+
+volumes:
+  postgres_data:

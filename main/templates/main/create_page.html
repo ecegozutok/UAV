@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create Page</h1>
+<p>Select what you'd like to create:</p>
+
+<ul>
+    {% for option in create_options %}
+        <li>
+            <a href="{{ option.url }}">{{ option.name }}</a>
+        </li>
+    {% empty %}
+        <p>You do not have permission to create any items.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
